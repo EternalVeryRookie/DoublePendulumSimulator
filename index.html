@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Double Pendulum</title>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <script src="three.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+    <script type="module" src="DoublePendSimu.js"></script>
+  </head>
+  <body>
+    <div id="main_panel">
+      <div id="chart_area">
+      </div>
+      <canvas id="main_canvas"></canvas>
+      <div class="ui_panel">
+
+        <div class="double_pend_param_input_form">
+          <div class="double_pend_param_info">
+            <label>θ_1</label>
+          </div>
+          <input type="range" id="theta1_range" min=0.0 max=3.1415 step=0.0001 tabindex=-1/>
+          <input type="text" id="theta1_value" size=2>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <div class="double_pend_param_info">
+            <label>θ_2</label>
+          </div>
+          <input type="range" id="theta2_range" min=0.0 max=3.1415 step=0.0001 tabindex=-1/>
+          <input type="text" id="theta2_value" size=2>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <div class="double_pend_param_info">
+            <canvas class="double_pend_param_color" id="top_line_length"></canvas>
+            <label>上の糸の長さ</label>
+          </div>
+          <input type="range" id="top_line_length_range" min=0.01 max=10.0 step=0.01 tabindex=-1/>
+          <input type="text" id="top_line_length_value" size=2>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <div class="double_pend_param_info">
+            <canvas class="double_pend_param_color" id="top_plumb_mass"></canvas>
+            <label>上の質点の質量</label>
+          </div>
+          <input type="range" id="top_plumb_mass_range" min=0.01 max=100 step=0.01 tabindex=-1/>
+          <input type="text" id="top_plumb_mass_value" size=2>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <div class="double_pend_param_info">
+            <canvas class="double_pend_param_color" id="under_line_length"></canvas>
+            <label>下の糸の長さ</label>
+          </div>
+          <input type="range" id="under_line_length_range" min=0.01 max=10.00 step=0.01 tabindex=-1/>
+          <input type="text" id="under_line_length_value" size=2>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <div class="double_pend_param_info">
+            <canvas class="double_pend_param_color" id="under_plumb_mass"></canvas>
+            <label>下の質点の質量</label>
+          </div>
+          <input type="range" id="under_plumb_mass_range" min=0.01 max=100 step=0.01 tabindex=-1/>
+          <input type="text" id="under_plumb_mass_value" size=2>
+        </div>
+      </div>
+
+      <div class="ui_panel">
+        <label class="physical_quantity_info" id="kinetic_energy_label">K</label>
+        <label class="physical_quantity_info" id="potential_energy_label">U</label>
+        <label class="physical_quantity_info" id="all_energy_label">E</label>
+
+        <div class="double_pend_param_input_form">
+          <div class="double_pend_param_info">
+            <label>上のジョイントの粘性抵抗</label>
+          </div>
+          <input type="range" id="top_viscous_resist_coeff_range" tabindex=-1/>
+          <input type="text" id="top_viscous_resist_coeff_value" size=2/>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <div class="double_pend_param_info">
+            <label>下のジョイントの粘性抵抗</label>
+          </div>
+          <input type="range" id="under_viscous_resist_coeff_range" tabindex=-1/>
+          <input type="text" id="under_viscous_resist_coeff_value" size=2/>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <button id="start_button" class="sim_operation_btn" type="button" value="start">スタート</button>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <button id="stop_button" class="sim_operation_btn" type="button" value="stop">ストップ</button>
+        </div>
+
+        <div class="double_pend_param_input_form">
+          <button id="reset_button" class="sim_operation_btn" type="button" value="reset">リセット</button>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>

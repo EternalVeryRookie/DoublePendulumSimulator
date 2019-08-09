@@ -1,0 +1,84 @@
+body
+{
+  background: #0645FF;
+  color: #bdbdbd;
+  font-weight: 300;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Helvetica neue, roboto;
+}
+
+div#main_panel
+{
+  display:flex;
+  align-items: flex-start;
+  height : calc(99%);
+}
+
+div.double_pend_param_input_form
+{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+div.double_pend_param_info
+{
+  text-align: left;
+}
+
+canvas.double_pend_param_color
+{
+  width:15px;
+  height:15px;
+}
+
+canvas#top_line_length{ background-color: #04e110; }
+canvas#top_plumb_mass { background-color: #ff935c; }
+canvas#under_line_length { background-color: #dc5353; }
+canvas#under_plumb_mass  { background-color: #a72461; }
+
+label.physical_quantity_info
+{
+  text-align: left;
+  display:block;
+  float:left;
+  width:150px;
+}
+
+canvas#main_canvas
+{
+  width:500px;
+  height:500px;
+  margin-top:50px;
+}
+
+div.ui_panel
+{
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  margin-left: 50px;
+}
+
+div#chart_area
+{
+  display: flex;
+  flex-direction: column;
+  margin-right: 50px
+}
+
+canvas.phase_area_graph
+{
+  width: 200px;
+  height: 200px;
+}
+
+button.sim_operation_btn
+{
+  height:50px;
+  width:130px;
+}
