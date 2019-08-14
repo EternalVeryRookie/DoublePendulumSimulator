@@ -44,7 +44,7 @@ class DoublePendSimu
 
   initScene()
   {
-    this.three = new ThreeLib(this.mainCanvasName, [0, 0, 20]);
+    this.three = new ThreeLib(this.mainCanvasName, [0, 0, 80]);
     this.three.renderer.setClearColor(0x000010);
     this.doublePendulum1 = new DoublePendulum( this.__topYarnLength
                                              , this.__underYarnLength
@@ -56,52 +56,6 @@ class DoublePendSimu
     this.scene.add(this.doublePendulum1.topPlumb.mesh);
     this.scene.add(this.doublePendulum1.underPlumb.mesh);
 
-    this.three.renderer.clear();
-    this.three.renderer.render(this.scene, this.three.camera);
-  }
-
-  setTopPlumbMass(m)
-  {
-    if (m <= 0) return ;
-    this.__topPlumbMass = m;
-  }
-
-  setTopYarnLength(l)
-  {
-    if (l <= 0) return ;
-    this.__topYarnLength = l;
-    this.doublePendulum1.posSet(l, this.__underYarnLength, this.__theta1, this.__theta2);
-    this.three.renderer.clear();
-    this.three.renderer.render(this.scene, this.three.camera);
-  }
-
-  setUnderPlumbMass(m)
-  {
-    if (m <= 0) return ;
-    this.__underPlumbMass = m;
-  }
-
-  setUnderYarnLength(l)
-  {
-    if (l <= 0) return ;
-    this.__underYarnLength = l;
-    this.doublePendulum1.posSet(this.__topYarnLength, l, this.__theta1, this.__theta2);
-    this.three.renderer.clear();
-    this.three.renderer.render(this.scene, this.three.camera);
-  }
-
-  setTheta1(theta)
-  {
-    this.__theta1 = theta;
-    this.doublePendulum1.posSet(this.__topYarnLength, this.__underYarnLength, this.__theta1, this.__theta2);
-    this.three.renderer.clear();
-    this.three.renderer.render(this.scene, this.three.camera);
-  }
-
-  setTheta2(theta)
-  {
-    this.__theta2 = theta;
-    this.doublePendulum1.posSet(this.__topYarnLength, this.__underYarnLength, this.__theta1, this.__theta2);
     this.three.renderer.clear();
     this.three.renderer.render(this.scene, this.three.camera);
   }
@@ -361,6 +315,54 @@ class DoublePendSimu
     else this.__underJointResistCoeff = c;
   }
 
+
+
+  set topPlumbMass(m)
+  {
+    if (m <= 0) return ;
+    this.__topPlumbMass = m;
+  }
+
+  set topYarnLength(l)
+  {
+    if (l <= 0) return ;
+    this.__topYarnLength = l;
+    this.doublePendulum1.posSet(l, this.__underYarnLength, this.__theta1, this.__theta2);
+    this.three.renderer.clear();
+    this.three.renderer.render(this.scene, this.three.camera);
+  }
+
+  set underPlumbMass(m)
+  {
+    if (m <= 0) return ;
+    this.__underPlumbMass = m;
+  }
+
+  set underYarnLength(l)
+  {
+    if (l <= 0) return ;
+    this.__underYarnLength = l;
+    this.doublePendulum1.posSet(this.__topYarnLength, l, this.__theta1, this.__theta2);
+    this.three.renderer.clear();
+    this.three.renderer.render(this.scene, this.three.camera);
+  }
+
+  set theta1(theta)
+  {
+    this.__theta1 = theta;
+    this.doublePendulum1.posSet(this.__topYarnLength, this.__underYarnLength, this.__theta1, this.__theta2);
+    this.three.renderer.clear();
+    this.three.renderer.render(this.scene, this.three.camera);
+  }
+
+  set theta2(theta)
+  {
+    this.__theta2 = theta;
+    this.doublePendulum1.posSet(this.__topYarnLength, this.__underYarnLength, this.__theta1, this.__theta2);
+    this.three.renderer.clear();
+    this.three.renderer.render(this.scene, this.three.camera);
+  }
+
   //getter
   get theta1(){ return this.__theta1; }
   get theta2(){ return this.__theta2; }
@@ -425,12 +427,12 @@ function simReset(evt)
 {
   doublePendSimulator.simulationEnd();
 
-  doublePendSimulator.setTheta1(Number(document.getElementById(theta1_range_id).value));
-  doublePendSimulator.setTheta2(Number(document.getElementById(theta2_range_id).value));
-  doublePendSimulator.setTopPlumbMass(Number(document.getElementById(top_plumb_mass_range_id).value));
-  doublePendSimulator.setTopYarnLength(Number(document.getElementById(top_line_length_range_id).value));
-  doublePendSimulator.setUnderPlumbMass(Number(document.getElementById(under_plumb_mass_range_id).value));
-  doublePendSimulator.setUnderYarnLength(Number(document.getElementById(under_line_length_range_id).value));
+  doublePendSimulator.theta1 = Number(document.getElementById(theta1_range_id).value);
+  doublePendSimulator.theta2 = Number(document.getElementById(theta2_range_id).value);
+  doublePendSimulator.topPlumbMass = Number(document.getElementById(top_plumb_mass_range_id).value);
+  doublePendSimulator.topYarnLength = Number(document.getElementById(top_line_length_range_id).value);
+  doublePendSimulator.underPlumbMass = Number(document.getElementById(under_plumb_mass_range_id).value);
+  doublePendSimulator.underYarnLength = Number(document.getElementById(under_line_length_range_id).value);
 }
 
 
@@ -444,6 +446,12 @@ function init(evt)
   const underPlumbMassRange = document.getElementById(under_plumb_mass_range_id);
   const topViscousResistCoeffRange = document.getElementById(top_viscous_resist_coeff_range_id);
   const underViscousResistCoeffRange = document.getElementById(under_viscous_resist_coeff_range_id);
+
+  //rangeの初期値設定
+  theta1Range.value = theta2Range.value = Math.PI / 2
+  topLineLengthRange.value = underLineLengthRange.value = 10
+  topPlumbMassRange.value = underPlumbMassRange.value = 3
+  topViscousResistCoeffRange.value = underViscousResistCoeffRange.value = 0
 
   const theta1 = Number(theta1Range.value);
   const theta2 = Number(theta2Range.value);
@@ -478,12 +486,12 @@ function init(evt)
   underViscousResistCoeffRange.valueVisId = under_viscous_resist_coeff_textbox_id;
 
   //rangeが動いた時のパラメータ設定関数の設定
-  theta1Range.setParamMethod = function(evt){ doublePendSimulator.setTheta1(Number(evt.target.value)); };
-  theta2Range.setParamMethod = function(evt){ doublePendSimulator.setTheta2(Number(evt.target.value)); };
-  topLineLengthRange.setParamMethod = function(evt){ doublePendSimulator.setTopYarnLength(Number(evt.target.value)); };
-  topPlumbMassRange.setParamMethod = function(evt){ doublePendSimulator.setTopPlumbMass(Number(evt.target.value)); };
-  underLineLengthRange.setParamMethod = function(evt){ doublePendSimulator.setUnderYarnLength(Number(evt.target.value)); };
-  underPlumbMassRange.setParamMethod = function(evt){ doublePendSimulator.setUnderPlumbMass(Number(evt.target.value)); };
+  theta1Range.setParamMethod = function(evt){ doublePendSimulator.theta1 = Number(evt.target.value); };
+  theta2Range.setParamMethod = function(evt){ doublePendSimulator.theta2 = Number(evt.target.value); };
+  topLineLengthRange.setParamMethod = function(evt){ doublePendSimulator.topYarnLength = Number(evt.target.value); };
+  topPlumbMassRange.setParamMethod = function(evt){ doublePendSimulator.topPlumbMass = Number(evt.target.value); };
+  underLineLengthRange.setParamMethod = function(evt){ doublePendSimulator.underYarnLength = Number(evt.target.value); };
+  underPlumbMassRange.setParamMethod = function(evt){ doublePendSimulator.underPlumbMass = Number(evt.target.value); };
   topViscousResistCoeffRange.setParamMethod = function(evt){ doublePendSimulator.topJointResistCoeff = Number(evt.target.value); };
   underViscousResistCoeffRange.setParamMethod = function(evt){ doublePendSimulator.underJointResistCoeff = Number(evt.target.value); };
 
@@ -534,12 +542,12 @@ function init(evt)
   underViscousResistCoeffTextbox.relationRagneId = under_viscous_resist_coeff_range_id;
 
   //パラメータ設定用の関数を設定する
-  theta1Textbox.setParamMethod = function(evt){ doublePendSimulator.setTheta1(Number(evt.target.value)); };
-  theta2Textbox.setParamMethod = function(evt){ doublePendSimulator.setTheta2(Number(evt.target.value)); };
-  topLineLengthTextbox.setParamMethod = function(evt){ doublePendSimulator.setTopYarnLength(Number(evt.target.value)); };
-  topPlumbMassTextbox.setParamMethod = function(evt){ doublePendSimulator.setTopPlumbMass(Number(evt.target.value)); };
-  underLineLengthTextbox.setParamMethod = function(evt){ doublePendSimulator.setUnderYarnLength(Number(evt.target.value)); };
-  underPlumbMassTextbox.setParamMethod = function(evt){ doublePendSimulator.setUnderPlumbMass(Number(evt.target.value)); };
+  theta1Textbox.setParamMethod = function(evt){ doublePendSimulator.theta1 = Number(evt.target.value); };
+  theta2Textbox.setParamMethod = function(evt){ doublePendSimulator.theta2 = Number(evt.target.value); };
+  topLineLengthTextbox.setParamMethod = function(evt){ doublePendSimulator.topYarnLength = Number(evt.target.value); };
+  topPlumbMassTextbox.setParamMethod = function(evt){ doublePendSimulator.topPlumbMass = Number(evt.target.value); };
+  underLineLengthTextbox.setParamMethod = function(evt){ doublePendSimulator.underYarnLength = Number(evt.target.value); };
+  underPlumbMassTextbox.setParamMethod = function(evt){ doublePendSimulator.underPlumbMass = Number(evt.target.value); };
   topViscousResistCoeffTextbox.setParamMethod = function(evt){ doublePendSimulator.topJointResistCoeff = Number(evt.target.value); };
   underViscousResistCoeffTextbox.setParamMethod = function(evt){ doublePendSimulator.underJointResistCoeff = Number(evt.target.value); };
 
