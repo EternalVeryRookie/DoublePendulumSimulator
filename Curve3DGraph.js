@@ -45,8 +45,6 @@ export default class Curve3DGraph
 
     this.scene.add(this.curve);
     this.__setEvtListener(renderTargetName);
-
-    console.log("aaa"+this.nextInsertIndex);
   }
 
   reset()
