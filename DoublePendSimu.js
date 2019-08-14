@@ -167,7 +167,7 @@ class DoublePendSimu
     let f = function(){return self.TimeDevelopment()}
     self.animId = window.requestAnimationFrame(f);
 
-    for (let i = 0; i < 25; ++i)
+    for (let i = 0; i < 40; ++i)
     {
       const x_0 = this.time;
       const y_0 = [this.__theta1, this.__theta2, this.angleV1, this.angleV2];
