@@ -138,7 +138,7 @@ class DoublePendSimu
     ctx.className = "phase_area_graph";
     document.getElementById('chart_area').appendChild(ctx);
 
-    this.m1PhaseSpaceGraph = new Curve3DGraph(ctx.id, 100);
+    this.m1PhaseSpaceGraph = new Curve3DGraph(ctx.id);
     this.m1PhaseSpaceGraph.addData([this.__theta1, this.getTopPlumbMomentum(), 0]);
     this.m1PhaseSpaceGraph.render();
   }
@@ -167,11 +167,6 @@ class DoublePendSimu
 
   setEvtListener()
   {
-    const startBtn = document.getElementById("start_button");
-    startBtn.onclick = this.simulationStart();
-    const stopBtn = document.getElementById("stop_button");
-    stopBtn.onclick = this.simulationStop();
-
     const canvas = document.getElementById(this.mainCanvasName);
     canvas.addEventListener("mousedown", this.mouseDownOnCanvas());
     canvas.addEventListener("mouseup", this.mouseUpOnCanvas());
@@ -502,8 +497,11 @@ function init(evt)
   topViscousResistCoeffRange.addEventListener("input", moveDoublePendParamRangeBar);
   underViscousResistCoeffRange.addEventListener("input", moveDoublePendParamRangeBar);
 
-  //resetボタンにリセットイベント設定
+  //start, stop, resetボタンにイベント設定
   document.getElementById("reset_button").addEventListener("click", simReset);
+  document.getElementById("start_button").addEventListener("click", doublePendSimulator.simulationStart());
+  document.getElementById("stop_button").addEventListener("click", doublePendSimulator.simulationStop());
+
 
 
   const theta1Textbox = document.getElementById(theta1_textbox_id);
