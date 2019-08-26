@@ -176,8 +176,9 @@ class DoublePendSimu
       const constant = [this.__topPlumbMass, this.__underPlumbMass, this.__topYarnLength, this.__underYarnLength, this.__topJointResistCoeff, this.__underJointResistCoeff];
 
       const solve = RungeKutta(func, this.deltaT, x_0, y_0, constant);
-      this.__theta1 = solve[0];// % (2*Math.PI);
-      this.__theta2 = solve[1];// % (2*Math.PI);
+      //絶対値が大きくなると計算誤差が大きくなるため、0 <= θ <= 2πに収まるようにする
+      this.__theta1 = solve[0] % (2*Math.PI);
+      this.__theta2 = solve[1] % (2*Math.PI);
       this.angleV1 = solve[2];
       this.angleV2 = solve[3];
       this.time += this.deltaT;
